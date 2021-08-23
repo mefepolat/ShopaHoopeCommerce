@@ -45,6 +45,8 @@ public class UserController {
 		
 		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully.");
 		
+		
+		
 		return "redirect:/users";
 	}
 	
