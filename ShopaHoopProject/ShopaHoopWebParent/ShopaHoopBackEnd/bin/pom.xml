@@ -6,25 +6,20 @@
 		<groupId>com.shopahoop</groupId>
 	<artifactId>ShopaHoopWebParent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-		
 	</parent>
-	<artifactId>ShopaHoopFrontEnd</artifactId>
-	<name>ShopaHoopFrontEnd</name>
-	<description>ShopAHoop Web Application</description>
+	<artifactId>ShopaHoopBackEnd</artifactId>
+	<name>ShopaHoopBackEnd</name>
+	<description>Shop A Hoop Admin project </description>
 	<properties>
 		<java.version>15</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-devtools</artifactId>
+	</dependency>
 	</dependencies>
 
 	<build>
