@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<title>Home - ShopaHoop Admin</title>
+<title>[[${pageTitle}]]</title>
 
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
@@ -59,7 +59,7 @@
 		</div>
 
 		<div>
-			<h2>Manage Users | Create New User</h2>
+			<h2>Manage Users | [[${pageTitle}]]</h2>
 
 		</div>
 
@@ -70,6 +70,7 @@
 			data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
 			data-bv-feedbackicons-validating="glyphicon glyphicon-refresh"
 			onsubmit="return checkEmailUnique(this);">
+			<input type="hidden" th:field="*{id}"/>
 			<!--  oninput='up2.setCustomValidity(up2.value != up.value ? "Passwords do not match." : "")'-->
 
 			<div class="border border-secondary rounded p-3">
@@ -99,10 +100,16 @@
 					<label class="col-sm-4 col-form-label">Password:</label>
 					<div class="col-sm-8">
 
-						<input type="password" class="form-control" id="inputPassword"
+						<input th:if="${user.id == null}" type="password" class="form-control"
 							th:field="*{password}" required minlength="8" maxlength="20"
-							name="up" data-bv-identical="true" data-bv-identical-field="up2"
-							data-bv-identical-message="The passwords do not match." />
+							name="up" />
+								
+								<input th:if="${user.id != null}" type="password" class="form-control"
+							th:field="*{password}" minlength="8" maxlength="20"
+							  />
+				
+						
+							
 					</div>
 				</div>
 
@@ -195,8 +202,10 @@
 		function checkEmailUnique(form) {
 			url = "[[@{/users/check_email}]]";
 			userEmail = $("#email").val();
+			userId = $("#id").val();
 			csrfValue = $("input[name='_csrf']").val();
 			params = {
+				id    : userId,
 				email : userEmail,
 				_csrf : csrfValue
 			};

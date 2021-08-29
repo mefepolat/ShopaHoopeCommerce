@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,6 +36,7 @@ public class UserController {
 		user.setEnabled(true);
 		theModel.addAttribute("user", user);
 		theModel.addAttribute("listRoles",listRoles);
+		theModel.addAttribute("pageTitle", "Create New User");
 		return "user_form";
 	}
 	
@@ -49,5 +51,25 @@ public class UserController {
 		
 		return "redirect:/users";
 	}
+	
+	@GetMapping("/users/edit/{id}")
+	public String editUser(@PathVariable (name = "id") Integer id, RedirectAttributes redirectAttributes, Model theModel) {
+		try {
+		User user = userService.get(id);
+		List<Role> listRoles = userService.listRoles();
+		theModel.addAttribute("listRoles",listRoles);
+		theModel.addAttribute("user", user);
+		theModel.addAttribute("pageTitle", "Edit User ID:" + id);
+		return "user_form";
+		} catch (UserNotFoundException ex) {
+			
+			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+			return "redirect:/users";
+
+
+		}
+		
+	}
+	
 	
 }
