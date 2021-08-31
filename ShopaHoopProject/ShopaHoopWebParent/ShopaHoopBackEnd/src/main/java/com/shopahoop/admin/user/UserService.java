@@ -6,11 +6,13 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shopahoop.common.entity.Role;
 import com.shopahoop.common.entity.User;
 
 @Service
+@Transactional
 public class UserService {
 
 	@Autowired
@@ -32,7 +34,7 @@ public class UserService {
 		return (List<Role>) roleRepo.findAll();
 	}
 
-	public void save(User user) {
+	public User save(User user) {
 		boolean isUpdatingUser =(user.getId() != null);
 		
 		if (isUpdatingUser) {
@@ -48,7 +50,7 @@ public class UserService {
 		
 		encodePassword(user);
 		}
-		userRepo.save(user);
+		return userRepo.save(user);
 		
 	}
 	
@@ -98,6 +100,11 @@ public class UserService {
 		}
 		
 		userRepo.deleteById(id);
+	}
+	
+	public void updateUserEnabledStatus(Integer id, boolean enabled) {
+		
+		userRepo.updateEnabledStatus(id, enabled);
 	}
 	     
 }
