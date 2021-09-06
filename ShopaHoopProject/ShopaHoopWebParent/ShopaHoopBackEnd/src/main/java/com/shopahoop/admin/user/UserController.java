@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -19,19 +21,38 @@ import com.shopahoop.common.entity.Role;
 import com.shopahoop.common.entity.User;
 
 @Controller
+@Scope("session")
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
 	@GetMapping("/users")
-	public String listAll(Model theModel) {
+	public String listFirstPage(Model theModel) {
 
-		List<User> listUsers = userService.listAll();
+		return listByPage(1, theModel);
+	}
+	
+	@GetMapping("/users/page/{pageNum}")
+	public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model theModel) {
+		
+		Page<User> page = userService.listByPage(pageNum);
+		List<User> listUsers = page.getContent();
+		
+		long startCount = (pageNum - 1) * UserService.USERS_PER_PAGE +1;
+		long endCount = startCount + UserService.USERS_PER_PAGE - 1;
+		
+		if (endCount > page.getTotalElements()) {
+			endCount = page.getTotalElements();
+		}
+		theModel.addAttribute("totalPages", page.getTotalPages());
+		theModel.addAttribute("currentPage", pageNum);
+		theModel.addAttribute("startCount", startCount);
+		theModel.addAttribute("endCount", endCount);
+		theModel.addAttribute("totalElements", page.getTotalElements());
 		theModel.addAttribute("listUsers", listUsers);
-
+	
 		return "users";
-
 	}
 
 	@GetMapping("/users/new")

@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,18 +18,35 @@ import com.shopahoop.common.entity.User;
 @Transactional
 public class UserService {
 
-	@Autowired
-	private UserRepository userRepo;
+	public static final int USERS_PER_PAGE = 5;
+	
+	private final UserRepository userRepo;
+	
+	
+	private final RoleRepository roleRepo;
+	
+	
+	private final PasswordEncoder passwordEncoder;
+	
 	
 	@Autowired
-	private RoleRepository roleRepo;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
+	public UserService(UserRepository userRepo, RoleRepository roleRepo, PasswordEncoder passwordEncoder) {
+		
+		this.userRepo = userRepo;
+		this.roleRepo = roleRepo;
+		this.passwordEncoder = passwordEncoder;
+	}
+
 	public List<User> listAll(){
 		
 	return (List<User>) userRepo.findAll();
+	}
+	
+	public Page<User> listByPage(int pageNumber) {
+		
+		Pageable pageable= PageRequest.of(pageNumber - 1, USERS_PER_PAGE);
+		
+		return userRepo.findAll(pageable);
 	}
 	
 	public List<Role> listRoles(){
