@@ -29,5 +29,8 @@ eCommerce Spring Project
 <il>- Bootstrap 4, HTML5 and jQuery 3</il>
 
 </ul>
+  
+  <br> </br>
+  <b>Note: </b>This project is not fully completed yet, I am still learning the technologies through udemy, stackoverflow, youtube etc. and implementing them into my project.
 
 </body>
