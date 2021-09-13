@@ -8,25 +8,25 @@ eCommerce Spring Project
 <body>
 <ul>
 
-<il>- Spring framework development with Spring Boot</il>
+<li>- Spring framework development with Spring Boot</li>
 
-<il>- Spring Data JPA and Hibernate framework</il>
+<li>- Spring Data JPA and Hibernate framework</li>
 
-<il>- Spring Security</il>
+<li>- Spring Security</li>
 
-<il>- Spring OAuth</il>
+<li>- Spring OAuth</li>
 
-<il>- Spring Mail</il>
+<li>- Spring Mail</li>
 
-<il>- PayPal Checkout API</il>
+<li>- PayPal Checkout API</li>
 
-<il>- Google Chart API</il>
+<li>- Google Chart API</li>
 
-<il>- JUnit, AssertJ and Mockito in unit testing</il>
+<li>- JUnit, AssertJ and Mockito in unit testing</li>
 
-<il>- Spring RESTful Webservices</il>
+<li>- Spring RESTful Webservices</li>
 
-<il>- Bootstrap 4, HTML5 and jQuery 3</il>
+<li>- Bootstrap 4, HTML5 and jQuery 3</li>
 
 </ul>
   
